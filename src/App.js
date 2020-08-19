@@ -13,10 +13,10 @@ import MenuIcon from '@material-ui/icons/Menu';
 import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
 import ChevronRightIcon from '@material-ui/icons/ChevronRight';
 import ListItem from '@material-ui/core/ListItem';
-import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemText from '@material-ui/core/ListItemText';
-import InboxIcon from '@material-ui/icons/MoveToInbox';
-import MailIcon from '@material-ui/icons/Mail';
+import DescriptionIcon from '@material-ui/icons/Description';
+
+import api from './services/api';
 
 const drawerWidth = 240;
 
@@ -77,7 +77,16 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function PersistentDrawerLeft() {
+function loadFiles() {
+  const response = api.get('/filetree');
+
+  console.log(response);
+}
+
+const props = loadFiles();
+
+export default function PersistentDrawerLeft(props) {
+
   const classes = useStyles();
   const theme = useTheme();
   const [open, setOpen] = React.useState(false);
@@ -118,6 +127,7 @@ export default function PersistentDrawerLeft() {
         className={classes.drawer}
         variant="persistent"
         anchor="left"
+        children={props}
         open={open}
         classes={{
           paper: classes.drawerPaper,
@@ -130,9 +140,9 @@ export default function PersistentDrawerLeft() {
         </div>
         <Divider />
         <List>
-          {['Inbox', 'Starred', 'Send email', 'Drafts'].map((text, index) => (
+          {['arquivo1', 'arquivo  2','arquivo3', 'arquivo4'].map((text) => (
             <ListItem button key={text}>
-              <ListItemIcon>{index % 2 === 0 ? <InboxIcon /> : <MailIcon />}</ListItemIcon>
+              <DescriptionIcon />
               <ListItemText primary={text} />
             </ListItem>
           ))}
