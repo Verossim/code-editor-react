@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import clsx from 'clsx';
 import { makeStyles, useTheme } from '@material-ui/core/styles';
 import Drawer from '@material-ui/core/Drawer';
@@ -77,15 +77,18 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-function loadFiles() {
-  const response = api.get('/filetree');
 
-  console.log(response);
-}
+export default function PersistentDrawerLeft() {
 
-const props = loadFiles();
+  const [files, setFiles] = useState([]);
 
-export default function PersistentDrawerLeft(props) {
+  useEffect(() => {
+    api.get('filetree')
+      .then(res => {
+        setFiles(res.data)
+      });
+
+  }, []);
 
   const classes = useStyles();
   const theme = useTheme();
@@ -127,7 +130,6 @@ export default function PersistentDrawerLeft(props) {
         className={classes.drawer}
         variant="persistent"
         anchor="left"
-        children={props}
         open={open}
         classes={{
           paper: classes.drawerPaper,
@@ -140,10 +142,10 @@ export default function PersistentDrawerLeft(props) {
         </div>
         <Divider />
         <List>
-          {['arquivo1', 'arquivo  2','arquivo3', 'arquivo4'].map((text) => (
-            <ListItem button key={text}>
+          {files.map((file) => (
+            <ListItem button key={file.id}>
               <DescriptionIcon />
-              <ListItemText primary={text} />
+              <ListItemText primary={file.name} />
             </ListItem>
           ))}
         </List>
