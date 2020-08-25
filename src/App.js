@@ -1,22 +1,18 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import clsx from 'clsx';
 import { makeStyles, useTheme } from '@material-ui/core/styles';
 import Drawer from '@material-ui/core/Drawer';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
-import List from '@material-ui/core/List';
 import Typography from '@material-ui/core/Typography';
 import Divider from '@material-ui/core/Divider';
 import IconButton from '@material-ui/core/IconButton';
 import MenuIcon from '@material-ui/icons/Menu';
 import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
 import ChevronRightIcon from '@material-ui/icons/ChevronRight';
-import ListItem from '@material-ui/core/ListItem';
-import ListItemText from '@material-ui/core/ListItemText';
-import DescriptionIcon from '@material-ui/icons/Description';
 
-import api from './services/api';
+import ControlledTreeView from './components/treeView';
 
 const drawerWidth = 240;
 
@@ -80,16 +76,6 @@ const useStyles = makeStyles((theme) => ({
 
 export default function PersistentDrawerLeft() {
 
-  const [files, setFiles] = useState([]);
-
-  useEffect(() => {
-    api.get('filetree')
-      .then(res => {
-        setFiles(res.data)
-      });
-
-  }, []);
-
   const classes = useStyles();
   const theme = useTheme();
   const [open, setOpen] = React.useState(false);
@@ -141,14 +127,7 @@ export default function PersistentDrawerLeft() {
           </IconButton>
         </div>
         <Divider />
-        <List>
-          {files.map((file) => (
-            <ListItem button key={file.id}>
-              <DescriptionIcon />
-              <ListItemText primary={file.name} />
-            </ListItem>
-          ))}
-        </List>
+        <ControlledTreeView /> 
         <Divider />
       </Drawer>
       <main
@@ -157,8 +136,8 @@ export default function PersistentDrawerLeft() {
         })}
       >
         <div className={classes.drawerHeader} />
-        <Typography paragraph>
-          Hello World
+        <Typography variant='overline'>
+          TEXT EDITOR HERE
         </Typography>
       </main>
     </div>
