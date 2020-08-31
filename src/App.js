@@ -12,7 +12,10 @@ import MenuIcon from '@material-ui/icons/Menu';
 import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
 import ChevronRightIcon from '@material-ui/icons/ChevronRight';
 
-import ControlledTreeView from './components/treeView';
+import { 
+  ControlledTreeView,
+  ControlledFileView
+} from './components/treeView';
 
 const drawerWidth = 240;
 
@@ -136,9 +139,7 @@ export default function PersistentDrawerLeft() {
         })}
       >
         <div className={classes.drawerHeader} />
-        <Typography variant='overline'>
-          TEXT EDITOR HERE
-        </Typography>
+        <ControlledFileView />
       </main>
     </div>
   );
