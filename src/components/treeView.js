@@ -44,12 +44,12 @@ function ControlledTreeView() {
         );
       } else {
         return (
+//onLabelClick invalid hook call
           <TreeItem
             key={treeItemData.id}
             nodeId={treeItemData.id}
             label={treeItemData.name}
             children={children}
-            onLabelClick={() => ControlledFileView(treeItemData.id)}
           />
         );
       }
@@ -74,7 +74,7 @@ function ControlledFileView(id) {
   const [code, setCode] = useState({});
 
   useEffect(() => {
-    api.get(`/files/${id}`)
+    api.get(`/files/3`)
       .then(res => {
         setCode(res.data)
       });
